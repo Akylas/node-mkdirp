@@ -5,6 +5,7 @@ var _0777 = parseInt('0777', 8);
 module.exports = mkdirP.mkdirp = mkdirP.mkdirP = mkdirP;
 
 function mkdirP (p, opts, f, made) {
+    var pr = this.process;
     if (typeof opts === 'function') {
         f = opts;
         opts = {};
@@ -17,7 +18,7 @@ function mkdirP (p, opts, f, made) {
     var xfs = opts.fs || fs;
     
     if (mode === undefined) {
-        mode = _0777 & (process?(~process.umask()):0);
+        mode = _0777 & (pr?(~pr.umask()):0);
     }
     if (!made) made = null;
     
@@ -53,6 +54,7 @@ function mkdirP (p, opts, f, made) {
 }
 
 mkdirP.sync = function sync (p, opts, made) {
+    var pr = this.process;
     if (!opts || typeof opts !== 'object') {
         opts = { mode: opts };
     }
@@ -61,7 +63,7 @@ mkdirP.sync = function sync (p, opts, made) {
     var xfs = opts.fs || fs;
     
     if (mode === undefined) {
-        mode = _0777 & (process?(~process.umask()):0);
+        mode = _0777 & (pr?(~pr.umask()):0);
     }
     if (!made) made = null;
 
